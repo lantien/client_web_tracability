@@ -1,0 +1,73 @@
+<html>
+
+  <head>
+    <title>basic example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/table.css">
+    <script type="text/javascript" src="./javascript/tools.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/side_bar.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./javascript/groupes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./node_modules/chosen-js/chosen.css">
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.proto.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default sidebar" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ><a href="./me.html">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+            <li ><a href="./get_all_appareils.html">Appareils<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-qrcode"></span></a></li>
+            <li ><a href="./projets.html">Projets<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+            <li ><a href="./labo.html">Laboratoires<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase"></span></a></li>
+            <li class="active"><a href="./groupe_list.html">Groupes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+            <li ><a href="#" onClick="logout();">Se deconnecter<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="next_to_sidebar">
+
+      <div id="center_content" class="container">
+
+        <h1 id="title"> </h1>
+
+        <select id="user_list" data-placeholder="Select Your Options">
+
+        </select>
+
+        <div class="data_container">
+          <div class="dataTables_wrapper table" style="width:100%; margin: 0px auto;">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <datalist id="users">
+    </datalist>
+
+  </body>
+
+
+
+</html>

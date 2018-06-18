@@ -1,0 +1,106 @@
+<html>
+
+  <head>
+    <title>basic example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/table.css">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="./css/side_bar_tracker.css">
+    <script type="text/javascript" src="./javascript/tools.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./javascript/me.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./node_modules/chosen-js/chosen.css">
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.proto.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default sidebar" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="./me.html">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+            <li ><a href="./get_all_appareils.html">Appareils<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-qrcode"></span></a></li>
+            <li ><a href="./projets.html">Projets<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+            <li ><a href="./labo.html">Laboratoires<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase"></span></a></li>
+            <li ><a href="./groupe_list.html">Groupes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+            <li ><a href="#" onClick="logout();">Se deconnecter<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li><a href="#user" data-toggle='tab'>Me</a></li>
+      <li class="active"><a href="#projects" data-toggle='tab'>My projects</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="user" class="tab-pane">
+          <table style="margin: 0px auto;" id="tableau" class="table">
+
+          </table>
+          <button type="button" id="modify_user" class="btn btn-square btn-block btn-warning">Modifier</button>
+        </div>
+
+        <div id="projects" class="tab-pane active">
+
+          <form class="form-add" id="add_prj">
+            <textarea id="obj" type="text" name="objJSON" class="form-control" cols="40" rows="5"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
+          </form>
+
+          <div class="data_container">
+            <div class="dataTables_wrapper table" style="width:100%; margin: 0px auto;">
+            </div>
+          </div>
+
+        </div>
+
+    </div>
+  </div>
+
+  <div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form-mod" id="mod_labo">
+            <textarea id="objMod" type="text" class="form-control" cols="40" rows="5"></textarea>
+            <select id="labo-list"> </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="valid_modification" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </body>
+
+</html>

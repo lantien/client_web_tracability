@@ -1,0 +1,85 @@
+<html>
+
+  <head>
+    <title>basic example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/table.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/chosen-js/chosen.css">
+    <script type="text/javascript" src="./javascript/tools.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="./css/side_bar_tracker.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./javascript/src/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="./javascript/src/qrcode.js"></script>
+    <script type="text/javascript" src="./javascript/track.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.js"></script>
+
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="./node_modules/chosen-js/chosen.proto.js"></script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default sidebar" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ><a href="./me.html">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+            <li class="active"><a href="./get_all_appareils.html">Appareils<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-qrcode"></span></a></li>
+            <li><a href="./projets.html">Projets<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+            <li ><a href="./labo.html">Laboratoires<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase"></span></a></li>
+            <li ><a href="./groupe_list.html">Groupes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+            <li ><a href="#" onClick="logout();">Se deconnecter<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+        <div class='col-lg-4'>
+
+          <h1 id="appareil_info"></h1>
+          <div id="displayQr"></div>
+
+          <div id="groupe_info">
+          </div>
+
+          <!-- <table class="table" id="tableau_groupe" style="margin:0">
+          </table> -->
+
+        </div>
+
+        <div class='col-lg-8'>
+
+          <table class="table" id="suivie_display">
+
+          </table>
+
+        </div>
+
+          <iframe
+              id="map"
+              width="600"
+              height="450"
+              frameborder="0" style="border:0"
+               allowfullscreen>
+            </iframe>
+
+    </div>
+
+  </body>
+
+</html>

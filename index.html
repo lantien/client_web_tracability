@@ -1,0 +1,44 @@
+<html>
+
+  <head>
+    <title>basic example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/login_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./javascript/tools.js"></script>
+    <script type="text/javascript" src="./javascript/logger.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+      <form class="form-signin" id="form-signin">
+        <input type="text" class="form-control" id="username" name="login" placeholder="Username" required="" autofocus="" />
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required=""/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+      </form>
+    </div>
+
+    <div class="wrapper">
+      <form class="form-signin" id="form-create">
+        <input type="text"  id="nom" placeholder="nom" class="form-control" required="">
+        <input type="text"  id="prenom" placeholder="prenom" class="form-control" required="">
+        <input type="text"  id="login" placeholder="Nom d'utilisateur" class="form-control">
+        <input type="email"  id="email" placeholder="Adresse e-mail" class="form-control" required="" >
+        <input type="text"  id="tel" placeholder="telephone" class="form-control" required="">
+        <input type="password"  id="password_input" placeholder="Mot de passe" class="form-control" required="">
+        <input type="password"  id="password_confirm" placeholder="Confirmation mot de passe" class="form-control" required="">
+        <select name="labo-list" id="labo-list" form="form-create" class="form-control">
+
+        </select>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Crée un compte</button>
+      </form>
+    </div>
+
+
+
+  </body>
+
+</html>
