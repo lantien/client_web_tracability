@@ -4,6 +4,8 @@ $( document ).ready(function() {
 
   var lastIdMod = "";
 
+  $("#menu_grp").addClass('active');
+
   getAllGroupe();
   function getAllGroupe() {
     makeRequest(

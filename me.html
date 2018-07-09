@@ -24,33 +24,12 @@
 
   <body>
 
-    <nav class="navbar navbar-default sidebar" role="navigation">
-        <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="./me.html">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-            <li ><a href="./get_all_appareils.html">Appareils<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-qrcode"></span></a></li>
-            <li ><a href="./projets.html">Projets<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
-            <li ><a href="./labo.html">Laboratoires<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase"></span></a></li>
-            <li ><a href="./groupe_list.html">Groupes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
-            <li ><a href="#" onClick="logout();">Se deconnecter<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <script src="javascript/menu.js"></script>
 
   <div class="container">
     <ul class="nav nav-tabs">
       <li><a href="#user" data-toggle='tab'>Me</a></li>
-      <li class="active"><a href="#projects" data-toggle='tab'>My projects</a></li>
+      <li class="active"><a href="#projects" data-toggle='tab'>Mes projets</a></li>
     </ul>
 
     <div class="tab-content">
@@ -78,6 +57,7 @@
     </div>
   </div>
 
+
   <div class="modal" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -95,6 +75,26 @@
         </div>
         <div class="modal-footer">
           <button type="button" id="valid_modification" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="prjModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <textarea id="objPrjMod" type="text" class="form-control" cols="40" rows="5"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="valid_modification_prj" class="btn btn-primary">Save changes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>

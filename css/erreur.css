@@ -1,0 +1,7 @@
+.form-signin {
+  text-align: center;
+}
+
+.error, .error_create {
+  color: red;
+}

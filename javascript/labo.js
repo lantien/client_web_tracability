@@ -3,6 +3,8 @@ var NbByPage = 10;
 
 $( document ).ready(function() {
 
+  $("#menu_labo").addClass('active');
+
   var lastIdMod = "";
 
   setTemplateLaboJson();
@@ -65,7 +67,7 @@ $( document ).ready(function() {
 
     makeRequest(
       {'x-access-token':localStorage.getItem("token"),},
-      webserver_url + "/api/laboratoires",
+      webserver_url + "/admin/laboratoires",
       'POST',
       objToAdd,
       refreshLabo,
@@ -102,7 +104,7 @@ $( document ).ready(function() {
       var id = $(this).attr("id");
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),},
-        webserver_url + "/api/laboratoires/" + id,
+        webserver_url + "/admin/laboratoires/" + id,
         'DELETE',
         {},
         function (data) {
@@ -118,7 +120,7 @@ $( document ).ready(function() {
       var objToMod =  JSON.parse($("#objMod").val());
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),},
-        webserver_url + "/api/laboratoires/" + lastIdMod,
+        webserver_url + "/admin/laboratoires/" + lastIdMod,
         'PUT',
         objToMod,
         function (data) {

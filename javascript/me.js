@@ -1,18 +1,21 @@
-var templatePrjJson = '{\n"nom" :""\n}';
+var templateGrpJson = '{\n"nom" :""\n}';
 var templateUserJson = '{\n"nom" :"",\n"prenom" :"",\n"login" :"",\n"email" :"",\n"telephone" :""}';
 var NbByPage = 10;
 
 $( document ).ready(function() {
 
+  $("#menu_me").addClass('active');
+
+  var userID = localStorage.getItem("userID");
+
   var lastIdMod = "";
 
-  var strPrj = "";
   var isSet = true;
 
-  setTemplatePrjJson();
-  function setTemplatePrjJson() {
+  settemplateGrpJson();
+  function settemplateGrpJson() {
 
-    $("#obj").text(templatePrjJson);
+    $("#obj").text(templateGrpJson);
   }
 
   getMe();
@@ -34,11 +37,11 @@ $( document ).ready(function() {
 
     var strTab = "";
 
-    var prjIDs = new Array();
+    //var prjIDs = new Array();
 
     var laboID;
 
-      prjIDs.push(data.projets);
+      //prjIDs.push(data.projets);
 
       strTab += '<tr>';
         strTab += '<td>ID</td>';
@@ -76,7 +79,8 @@ $( document ).ready(function() {
       strTab += '<td class=labo id="'+ data.laboratoire + '">' + data.laboratoire + '</td>';
       strTab += '</tr>';
 
-      getPrj(prjIDs);
+      getGrp(data._id);
+
       if(laboID != "") {
         getLaboNom(laboID);
       }
@@ -102,97 +106,81 @@ $( document ).ready(function() {
     $("#"+data._id).html(data.nom);
   }
 
-  function getPrj(arrayIds) {
-    arrayIds = arrayIds[0];
-
-      strPrj = "<thead><tr>";
-        strPrj += "<th>ID</th>";
-        strPrj += "<th>Nom</th>";
-        strPrj += "<th>Derniere mis à jour</th>";
-        strPrj += "<th></th>";
-        strPrj += "<th></th>";
-        strPrj += "<th></th>";
-        strPrj += "<th></th>";
-      strPrj += "</tr></thead>";
-
-      var max = arrayIds.length;
-
-      if(max == 0) {
-        $(".dataTables_wrapper").replaceWith('<table class="dataTables_wrapper" style="width:100%; margin: 0px auto;"></table>');
-
-        $(".dataTables_wrapper").html(strPrj);
-        $('.dataTables_wrapper').DataTable();
-      }
-      for(var i in arrayIds) {
+  function getGrp(userId) {
 
         makeRequest(
           {'x-access-token':localStorage.getItem("token"),},
-          webserver_url + "/api/projets/" + arrayIds[i],
+          webserver_url + "/api/groupe/get/" + userId,
           'GET',
           {},
-          displayPrj,
+          displayGrp,
           errorAjaxRequest
                   );
 
-      }
   }
 
-  function displayPrj(data) {
+  function displayGrp(data) {
 
-      strPrj += '<tr>';
-          strPrj += '<td>' + data._id + '</td>';
-          strPrj += '<td>' + data.nom + '</td>';
+    var strGrp = "<thead><tr>";
+      strGrp += "<th>ID</th>";
+      strGrp += "<th>Nom</th>";
+      strGrp += "<th>Derniere mis à jour</th>";
+      strGrp += "<th></th>";
+      strGrp += "<th></th>";
+      strGrp += "<th></th>";
+      strGrp += "<th></th>";
+    strGrp += "</tr></thead>";
 
-          var date = moment.utc(data.updatedAt).local().format('YYYY-MM-DD HH:mm:ss');
+    console.log("mes grp", data);
 
-          strPrj += '<td>' + date.toString() + '</td>';
-          strPrj += '<td>';
-          strPrj += '<select class="user_list" id="'+ data._id +'"  onchange="addProjet(this.value, this.id)" data-placeholder="Select Your Options"></select>';
-          strPrj += '</td>';
+    for(var i in data) {
 
-          strPrj += '<td><a style="text-decoration:none;" href=./projet_member.html?prjID=' + data._id + ' role="button">';
-          strPrj += '<button class="voir_prj btn btn-square btn-block btn-primary" id="dvoir_' +data._id+ '" type="button">Voir les membres</button>';
-          strPrj += '</a></td>';
+      strGrp += '<tr>';
+          strGrp += '<td>' + data[i]._id + '</td>';
+          strGrp += '<td>' + data[i].nom + '</td>';
 
-          strPrj += '<td>';
-          strPrj += '<button class="quitter_prj btn btn-square btn-block btn-warning" id="quitter_' +data._id+ '" type="button">Quitter</button>';
-          strPrj += '</td>';
+          var date = moment.utc(data[i].updatedAt).local().format('YYYY-MM-DD HH:mm:ss');
 
-          strPrj += '<td>';
-          strPrj += '<button class="delete_prj btn btn-square btn-block btn-danger" id="delete_' +data._id+ '" type="button">Delete</button>';
-          strPrj += '</td>';
+          strGrp += '<td>' + date.toString() + '</td>';
+          // strGrp += '<td>';
+          // strGrp += '<select class="user_list" id="'+ data[i]._id +'"  onchange="addProjet(this.value, this.id)" data-placeholder="Select Your Options"></select>';
+          // strGrp += '</td>';
 
-      strPrj += '</tr>';
+          strGrp += '<td><a style="text-decoration:none;" href=./groupes.html?id_groupe=' + data[i]._id + ' role="button">';
+          strGrp += '<button class="voir_prj btn btn-square btn-block btn-primary" id="dvoir_' +data[i]._id+ '" type="button">Voir les membres</button>';
+          strGrp += '</a></td>';
 
-      setListUser();
+          strGrp += '<td>';
+          strGrp += '<button class="quitter_prj btn btn-square btn-block btn-danger" id="quitter_' +data[i]._id+ '" type="button">Quitter</button>';
+          strGrp += '</td>';
+
+          if(data[i][userID] == "admin" || data[i].creator == userID) {
+            strGrp += '<td>';
+            strGrp += '<button class="mod_prj btn btn-square btn-block btn-warning" id="mod_' +data[i]._id+ '" type="button">Modifier</button>';
+            strGrp += '</td>';
+          } else {
+            strGrp += "<td></td>";
+          }
+
+          if(data[i][userID] == "admin" || data[i].creator == userID) {
+            strGrp += '<td>';
+            strGrp += '<button class="delete_prj btn btn-square btn-block btn-secondary" id="delete_' +data[i]._id+ '" type="button">Delete</button>';
+            strGrp += '</td>';
+          } else {
+            strGrp += "<td></td>";
+          }
+
+      strGrp += '</tr>';
+
+      //setListUser();
+    }
 
       $(".dataTables_wrapper").replaceWith('<table class="dataTables_wrapper" style="width:100%; margin: 0px auto;"></table>');
 
-      $(".dataTables_wrapper").html(strPrj);
+      $(".dataTables_wrapper").html(strGrp);
       $('.dataTables_wrapper').DataTable({
         "order": [[ 2, "desc" ]]
       });
-  }
-
-  function setListUser() {
-    makeRequest(
-      {'x-access-token':localStorage.getItem("token"),},
-      webserver_url + "/api/users",
-      'GET',
-      {},
-      displayAllUsers,
-      errorAjaxRequest
-              );
-  }
-
-  function displayAllUsers(data) {
-    var strOpt = '<option></option>';
-
-    for(var i in data) {
-      strOpt += '<option value="'+ data[i]._id +'">'+ data[i].nom+ " "+ data[i].prenom +'</option>';
-    }
-    $(".user_list").html(strOpt);
-    $(".user_list").chosen({width : "100%"});
   }
 
   $("#add_prj").submit(function( event ) {
@@ -203,7 +191,7 @@ $( document ).ready(function() {
     //crée le projet
     makeRequest(
       {'x-access-token':localStorage.getItem("token"),},
-      webserver_url + "/api/projets",
+      webserver_url + "/api/groupe",
       'POST',
       objToAdd,
       getDataToJoin,
@@ -213,7 +201,17 @@ $( document ).ready(function() {
 
   function getDataToJoin(data) {
     console.log("prj id : " + data._id + " " + localStorage.getItem("userID"));
-    joinPrj(data._id, localStorage.getItem("userID"), getMe, errorAjaxRequest);
+    makeRequest(
+          {'x-access-token':localStorage.getItem("token"),},
+          webserver_url + "/api/groupe/add",
+          'POST',
+          {
+            groupeId: data._id,
+            userId: localStorage.getItem("userID")
+          },
+          getMe,
+          errorAjaxRequest
+                  );
   }
 
   function errorAjaxRequest(xhr, ajaxOptions, thrownError) {
@@ -236,24 +234,71 @@ $( document ).ready(function() {
 
 
   $(".data_container").on('click', ".quitter_prj", function() {
+
       var id = $(this).attr("id").substring(8);
-      console.log(id);
-      leavePrj(id, localStorage.getItem("userID"), getMe, errorAjaxRequest);
+
+      makeRequest(
+        {'x-access-token':localStorage.getItem("token"),},
+        webserver_url + "/api/groupe/remove",
+        'POST',
+        {
+          groupeId: id,
+          userId: localStorage.getItem("userID")
+        },
+        getMe,
+        errorAjaxRequest
+                );
   });
 
   $(".data_container").on('click', ".delete_prj", function() {
       var id = $(this).attr("id").substring(7);
+
+      makeRequest(
+          {'x-access-token':localStorage.getItem("token"),},
+          webserver_url + "/api/groupe/" + id,
+          'DELETE',
+          {},
+          getMe,
+          errorAjaxRequest
+      );
+  });
+
+  $(".data_container").on('click', ".mod_prj", function() {
+      var id = $(this).attr("id").substring(4);
+      lastIdMod = id;
+
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),},
-        webserver_url + "/api/projets/" + id,
-        'DELETE',
+        webserver_url + "/api/groupe/" + id,
+        'GET',
         {},
         function(data) {
-          console.log("prj delete resp : " + data);
-          getMe(data);
+          var jsonGrp = JSON.parse(templateGrpJson);
+          jsonGrp.nom = data.nom
+          console.log(jsonGrp);
+          $("#objPrjMod").val(JSON.stringify(jsonGrp, null, '\t'));
+          $('#prjModal').modal('toggle');
         },
         errorAjaxRequest
                 );
+
+  });
+
+  $(".modal-footer").on( "click", "#valid_modification_prj", function() {
+
+    var objToMod =  JSON.parse($("#objPrjMod").val());
+    makeRequest(
+      {'x-access-token':localStorage.getItem("token"),},
+      webserver_url + "/api/groupe/" + lastIdMod,
+      'PUT',
+      objToMod,
+      function (data) {
+        $('#prjModal').modal('toggle');
+        getMe();
+      },
+      errorAjaxRequest
+              );
+
   });
 
 
@@ -304,20 +349,3 @@ $( document ).ready(function() {
   });
 
 });
-
-function addProjet(userID, grpID) {
-
-  makeRequest(
-        {'x-access-token':localStorage.getItem("token"),},
-        webserver_url + "/api/users/add",
-        'POST',
-        {
-          projetId: grpID,
-          userId: userID
-        },
-        function(data) {alert("Ajouter avec success");},
-        function errorAjaxRequest(xhr, ajaxOptions, thrownError) {
-            console.log(xhr);
-        }
-                );
-}

@@ -1,6 +1,10 @@
 $( document ).ready(function() {
 
+  var isAdmin = localStorage.getItem("admin");
+
   var id = getUrlParameter("id");
+
+  $("#menu_app").addClass('active');
 
   getDataAppareil();
   function getDataAppareil() {
@@ -62,6 +66,7 @@ $( document ).ready(function() {
 
     }
 
+    if(isAdmin == 'true') {
       strTab += '<form class="form_add_groupe">';
         strTab += '<input type="text" list="users" id="name_input">';
         strTab += '<button class="btn btn-square btn-success" type="submit">Crée groupe</button>';
@@ -70,6 +75,7 @@ $( document ).ready(function() {
       strTab += '<select id="groupe_existant" style="height:35px;"> </select>';
       strTab += '<button class="btn btn-square btn-success" id="join_groupe" type="submit">Join</button>';
       createList();
+    }
 
     $("#groupe_info").html(strTab);
 
@@ -141,7 +147,7 @@ $( document ).ready(function() {
     strTab += "</tr></thead>";
 
     var userArray = new Array();
-    var projetArray = new Array();
+    var groupeArray = new Array();
 
     data.sort(function(a, b) {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
@@ -154,42 +160,74 @@ $( document ).ready(function() {
       userArray.push(data[i].userID);
       strTab += '<td class="' + data[i].userID + '">' + data[i].userID + '</td>';
 
-      strTab += '<td>(' + data[i].longitude +',' + data[i].latitude +')<br>';
-      strTab += '<button type="button" onClick="displayPos('+data[i].latitude+','+ data[i].longitude+');" class="btn btn-square btn-primary glyphicon glyphicon-map-marker"></button>';
+      if(data[i].longitude != 181 || data[i].latitude != 181 ) {
+        strTab += '<td>(' + data[i].longitude +',' + data[i].latitude +')<br>';
+        strTab += '<button type="button" onClick="displayPos('+data[i].latitude+','+ data[i].longitude+');" class="btn btn-square btn-primary glyphicon glyphicon-map-marker"></button>';
+      } else {
+        strTab += '<td>Pas de données<br>';
+      }
       strTab += '</td>';
 
 
       strTab += '<td>' + data[i].is_rendu + '</td>';
 
-      projetArray.push(data[i].projetID);
-      strTab += '<td class="' + data[i].projetID + '">' + data[i].projetID + '</td>';
-
-      var dateCreated = moment.utc(data[i].createdAt).local().format('YYYY-MM-DD HH:mm:ss');
-      var date = moment.utc(data[i].updatedAt).local().format('YYYY-MM-DD HH:mm:ss');
-
-      var secs = new Date(data[i].updatedAt) - new Date(data[i].createdAt);
-
-      var diff = moment.utc(secs).format('HH:mm:ss');
-
-      strTab += '<td>'+ dateCreated +'</td>';
-
-      strTab += '<td>'+ date +'</td>';
-
-      strTab += '<td>'+ diff +'</td>'
-
-      strTab += '<td>' + data[i].is_incident + '</td>';
-
-      strTab += '<td>(' + data[i].longitude_rendu +',' + data[i].latitude_rendu +')<br>';
-      strTab += '<button type="button" onClick="displayPos('+data[i].latitude_rendu+','+ data[i].longitude_rendu+');" class="btn btn-square btn-primary glyphicon glyphicon-map-marker"></button>';
-      strTab += '</td>';
-
+      groupeArray.push(data[i].projetID);
       userArray.push(data[i].userID_rendu);
-      strTab += '<td class="' + data[i].userID_rendu + '">' + data[i].userID_rendu + '</td>';
+
+
+
+        strTab += '<td class="' + data[i].projetID + '">' + data[i].projetID + '</td>';
+        var dateCreated = moment.utc(data[i].createdAt).local().format('YYYY-MM-DD HH:mm:ss');
+        strTab += '<td>'+ dateCreated +'</td>';
+
+      if(data[i].is_rendu) {
+
+
+        var date = moment.utc(data[i].updatedAt).local().format('YYYY-MM-DD HH:mm:ss');
+
+        var secs = new Date(data[i].updatedAt) - new Date(data[i].createdAt);
+
+        var diff = moment.utc(secs).format('HH:mm:ss');
+
+
+
+        strTab += '<td>'+ date +'</td>';
+
+        strTab += '<td>'+ diff +'</td>'
+
+        strTab += '<td>' + data[i].is_incident + '</td>';
+
+        if(data[i].longitude_rendu != 181 || data[i].latitude_rendu != 181 ) {
+          strTab += '<td>(' + data[i].longitude_rendu +',' + data[i].latitude_rendu +')<br>';
+          strTab += '<button type="button" onClick="displayPos('+data[i].latitude_rendu+','+ data[i].longitude_rendu+');" class="btn btn-square btn-primary glyphicon glyphicon-map-marker"></button>';
+          strTab += '</td>';
+        } else {
+          strTab += '<td><br>';
+          strTab += 'Pas de données';
+          strTab += '</td>';
+        }
+
+
+        strTab += '<td class="' + data[i].userID_rendu + '">' + data[i].userID_rendu + '</td>';
+      } else {
+        strTab += '<td></td>';
+        strTab += '<td></td>';
+        strTab += '<td></td>';
+        strTab += '<td></td>';
+        strTab += '<td></td>';
+      }
 
       strTab += '</tr>';
     }
 
-    $("#suivie_display").html(strTab);
+    $(".dataTables_wrapper").replaceWith('<table class="dataTables_wrapper" style="width:100%; margin: 0px auto;"></table>');
+
+    $(".dataTables_wrapper").html(strTab);
+    $('.dataTables_wrapper').DataTable({
+      "order": [[ 4, "desc" ]]
+    });
+
+    //$("#suivie_display").html(strTab);
 
     for(var i in userArray) {
       makeRequest(
@@ -201,10 +239,10 @@ $( document ).ready(function() {
         isErrorRequest);
     }
 
-    for(var i in projetArray) {
+    for(var i in groupeArray) {
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),}
-        ,webserver_url + "/api/projets/" + projetArray[i],
+        ,webserver_url + "/api/groupe/" + groupeArray[i],
         'GET',
         {},
         displayNom,
@@ -222,7 +260,7 @@ $( document ).ready(function() {
 
     makeRequest(
       {'x-access-token':localStorage.getItem("token"),}
-      ,webserver_url + "/api/appareils/remove",
+      ,webserver_url + "/admin/appareils/remove",
       'POST',
       {
         appId: id,
@@ -239,7 +277,7 @@ $( document ).ready(function() {
       var idToJoin = $("#groupe_existant").val();
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),}
-        ,webserver_url + "/api/appareils/add",
+        ,webserver_url + "/admin/appareils/add",
         'POST',
         {
           appId: id,

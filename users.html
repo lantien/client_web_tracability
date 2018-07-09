@@ -3,23 +3,36 @@
   <head>
     <title>basic example</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/side_bar_tracker.css">
     <link rel="stylesheet" type="text/css" href="./css/table.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script type="text/javascript" src="./javascript/tools.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="./javascript/users.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
   </head>
 
   <body>
 
-    <form class="form-add" id="add_labo">
-      <textarea id="obj" type="text" name="objJSON" class="form-control" cols="40" rows="8"></textarea>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
-    </form>
+    <script src="javascript/menu.js"></script>
 
-    <table style="width:100%; margin: 0px auto;" id="tableau">
 
-    </table>
+    <div id="next_to_sidebar">
+
+      <div id="center_content">
+
+        <table style="width:100%; margin: 0px auto;" class="dataTables_wrapper">
+
+        </table>
+
+      </div>
+
+    </div>
 
   </body>
 

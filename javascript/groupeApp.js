@@ -2,6 +2,8 @@ var NbByPage = 10;
 
 $( document ).ready(function() {
 
+  $("#menu_grp").addClass('active');
+
   var id = getUrlParameter("id_groupe");
 
   console.log(id);
@@ -78,7 +80,7 @@ $( document ).ready(function() {
     var idApp = $(this).attr('id');
     makeRequest(
       {'x-access-token':localStorage.getItem("token"),}
-      ,webserver_url + "/api/appareils/remove",
+      ,webserver_url + "/admin/appareils/remove",
       'POST',
       {
         appId: idApp,
@@ -94,7 +96,7 @@ $( document ).ready(function() {
 
       makeRequest(
         {'x-access-token':localStorage.getItem("token"),}
-        ,webserver_url + "/api/appareils/add",
+        ,webserver_url + "/admin/appareils/add",
         'POST',
         {
           appId: $("#appareil_list").val(),

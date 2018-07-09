@@ -43,11 +43,12 @@ $( document ).ready(function() {
   }
 
   function onLogged(result) {
-    console.log("logged !" + result);
+    console.log("logged !" , result);
     // Do something with the result
     var promise1 = new Promise(function(resolve, reject) {
       localStorage.setItem("token", result.tokenJSON);
       localStorage.setItem("userID", result.userID);
+      localStorage.setItem("admin", result.admin);
       resolve(true);
     });
 
@@ -60,6 +61,14 @@ $( document ).ready(function() {
     }).catch(function(error) {
       console.log(error);
     });
+  }
+
+  function displayWrongAccount(xhr, ajaxOptions, thrownError) {
+    console.log("wrong password", xhr.status);
+
+    if(xhr.status == 404) {
+      $('.error').text("Invalid Login or password.");
+    }
   }
 
 
@@ -76,7 +85,7 @@ $( document ).ready(function() {
       'POST',
       obj,
       onLogged,
-      isErrorRequest
+      displayWrongAccount
     );
   });
 
@@ -105,16 +114,36 @@ $( document ).ready(function() {
         webserver_url+"/users",
         'POST',
         dataUser,
-        displayLog,
+        function (data) {
+          var obj = {login : logInput , password: passInput};
+          makeRequest(
+            {},
+            webserver_url+"/login",
+            'POST',
+            obj,
+            onLogged,
+            isErrorRequest
+          );
+        },
         isErrorRequest
       );
     } else {
-      console.log("password dont match");
+      $('.error_create').text("passwords dont match.");
+      console.log("passwords dont match");
     }
   });
+
+  function errorCreation(xhr, ajaxOptions, thrownError) {
+    $('.error_create').text("Username already taken.");
+  }
 
   function displayLog(data) {
     console.log(data);
   }
+
+  $(".switchForms").click(function() {
+    $("#form-signin").toggle();
+    $("#form-create").toggle();
+  });
 
 });

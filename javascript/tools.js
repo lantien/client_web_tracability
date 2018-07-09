@@ -113,40 +113,6 @@ function deleteAllProjetRef(id, success, fail) {
 function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("userID");
+  localStorage.removeItem("admin");
   redirectTo("./index.html");
 }
-//
-// function pageStarter() {
-//   var strTab = '<div id="1" class="tab-pane active">';
-//       strTab += '<table class="table" style="width:100%; margin: 0px auto;">';
-//
-//   return strTab;
-// }
-//
-// function nextPage(i) {
-//
-//     var strTab = '</table>';
-//       strTab += '</div>';
-//       strTab += '<div id="'+ i +'" class="tab-pane">';
-//         strTab += '<table class="table" style="width:100%; margin: 0px auto;">';
-//
-//   return strTab;
-// }
-//
-// function endPages() {
-//   var strTab = '</table>';
-//     strTab += '</div>';
-//   return strTab;
-// }
-//
-// function createPageMenu(nbPage) {
-//   var strPagination = "";
-//
-//   strPagination += '<li class="page-item active"><a class="page-link" data-toggle="tab" href="#1">1</a></li>';
-//
-//   for(var i = 2; i <= nbPage; i++) {
-//       strPagination += '<li class="page-item"><a class="page-link" data-toggle="tab" href="#'+ i +'">'+ i +'</a></li>';
-//   }
-//
-//   return strPagination;
-// }

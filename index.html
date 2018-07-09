@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/login_style.css">
+    <link rel="stylesheet" type="text/css" href="./css/erreur.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="./javascript/tools.js"></script>
     <script type="text/javascript" src="./javascript/logger.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
   </head>
 
   <body>
@@ -18,11 +21,13 @@
         <input type="text" class="form-control" id="username" name="login" placeholder="Username" required="" autofocus="" />
         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required=""/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <a class="switchForms" href="#">Pas de compte ?</a>
+        <a class="error"></a>
       </form>
     </div>
 
     <div class="wrapper">
-      <form class="form-signin" id="form-create">
+      <form class="form-signin" id="form-create" style="display:none">
         <input type="text"  id="nom" placeholder="nom" class="form-control" required="">
         <input type="text"  id="prenom" placeholder="prenom" class="form-control" required="">
         <input type="text"  id="login" placeholder="Nom d'utilisateur" class="form-control">
@@ -34,9 +39,14 @@
 
         </select>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Crée un compte</button>
+        <a class="switchForms" href="#">Retour</a>
+        <a class="error_create"></a>
       </form>
     </div>
 
+  <a href="./files/PlatformTracability.apk" download>
+      <img class="center" src="https://38o8pangdlulo00j385dzt43-wpengine.netdna-ssl.com/wp-content/uploads/2012/10/get_it_on_play_logo_large.png">
+  </a>
 
 
   </body>
